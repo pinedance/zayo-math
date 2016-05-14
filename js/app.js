@@ -11,7 +11,6 @@ app.config(['$compileProvider', function ($compileProvider) {
 
 app.controller('sumGameCtrl', ["$scope", "$timeout", "_", function($scope, $timeout, _) {
 
-
 String.prototype.rjust = function( width, padding ) {
 	padding = padding || " ";
 	padding = padding.substr( 0, 1 );
@@ -22,32 +21,16 @@ String.prototype.rjust = function( width, padding ) {
 } // http://snipplr.com/view/709/stringcenter-rjust-ljust/
 
 var num = [1,2,3,4,5,6,7,8,9]
-
-var setsUnder10 = []
-var setsOver10 = []
-
-for(var i=0;i<num.length;i++){
-	for(var j=0;j<num.length;j++){
-			var s = num[i] + num[j]
-			if(s < 10){
-				setsUnder10.push( [ num[i], num[j] ] )
-			} else {
-				setsOver10.push( [ num[i], num[j] ] )
-			}
-	}
-}
-
-var randSetsUnder10 = _.shuffle( setsUnder10 )
-var randSetsOver10 = _.shuffle( setsOver10 )
-
-///
+var sessions = ['+','-','*']
+var resultSign = {success: 'j-success', fail: 'j-fail', default: 'j-default'}
+$scope.session = 0 ; $scope.resultSign = resultSign.default
 
 var firstNum, secondNums
 
-$scope.buildNums = function(){
+var buildNums = $scope.buildNums = function(){
 	// firstNum = ( firstNum )? Number( firstNum ) : _.random(1, 20);
-	firstNum = ( $scope.firstNum )? Number( $scope.firstNum ) :  _.random(1, 20);
-	secondNums = ( $scope.secondNumMax )? _.range(1, Number( $scope.secondNumMax ) ) :  _.range(1, 20)
+	firstNum = ( $scope.firstNum )? Number( $scope.firstNum ) :	_.random(1, 50);
+	secondNums = ( $scope.secondNumMax )? _.range(1, Number( $scope.secondNumMax ) ) :	_.range(1, 50)
 	$scope.makeEquation()
 }
 
@@ -57,20 +40,35 @@ $scope.makeEquation = function( ){
 	$scope.secondNum = _.sample( secondNums )
 
 	$scope.correctValue = $scope.firstNum + $scope.secondNum
-	$scope.sumEquation = $scope.firstNum + " + " + $scope.secondNum + " = "
+
+	switch ( $scope.session ) {
+		case 0:
+			$scope.correctValue = $scope.firstNum + $scope.secondNum;
+			break;
+		case 1:
+			$scope.correctValue = $scope.firstNum - $scope.secondNum;
+			break;
+		case 2:
+			$scope.correctValue = $scope.firstNum * $scope.secondNum;
+			break;
+	}
+
+	$scope.sumEquation = $scope.firstNum + " " + sessions[$scope.session]+ " " + $scope.secondNum + " = "
 	console.log ($scope.correctValue)
 }
 
-function sendReport() {
-	$scope.result = true;
+buildNums()
+
+function sendReport(rst) {
+	$scope.resultSign = (rst)? resultSign.success : resultSign.fail;
 	$timeout(function() {
-		$scope.result = false;
+		$scope.resultSign = resultSign.default;
 	}, 1000);
 };
 
 $scope.checkValue = function( ){
 	$scope.ok = ($scope.correctValue == $scope.myinput )? true : false
-	sendReport()
+	sendReport($scope.ok)
 	if($scope.ok){
 		delete $scope.answer
 		$scope.makeEquation()

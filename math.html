@@ -16,6 +16,18 @@
 		 	#wrapper {
 		 		min-height: 100%;
 		 	}
+			/*.jumbo {
+				font-size: 200px;
+			}*/
+			.j-default {
+				background-color: #F8F8F8;
+			}
+			.j-success {
+				background-color: #d9edf7;
+			}
+			.j-fail {
+				background-color: #f2dede;
+			}
 		 </style>
 
 	<script type="text/javascript" src="vendor/jquery.min.js"></script><!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
@@ -51,9 +63,9 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">과정 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="">덧셈</a></li>
+						<li ng-class="{'active': session===0}"><a href="" ng-click="session=0" >덧셈</a></li>
 						<!-- <li role="separator" class="divider"></li> -->
-						<li><a href="">뺄셈</a></li>
+						<li ng-class="{'active': session===1}"><a href="" ng-click="session=1" >뺄셈</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -70,6 +82,19 @@
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>
+
+<!-- <div class="panel" ng-class="resultSign" style="min-height: 600px;">
+	<div class="panel-heading">
+		<h3 class="panel-title">풀어보자 <button class="btn btn-default btn-sm" ng-click="makeEquation()">다음문제</button></h3>
+	</div>
+	<div class="panel-body text-center">
+		<h1 class="jumbo" ng-bind="sumEquation + showinput"></h1>
+	</div>
+</div> -->
+<div class="jumbotron text-center" ng-class="resultSign" style="cursor:pointer" ng-click="makeEquation()">
+	<h1 ng-bind="sumEquation + showinput"></h1>
+</div>
+
 
 <div class="container-fluid" >
 
@@ -101,17 +126,6 @@
 
 </div>
 
-<div class="container-fluid" style="min-height: 60%;">
-
-	<div class="row">
-		<div class="col-sm-12 text-center">
-			<h1 ng-bind="sumEquation + showinput"></h1>
-			<h2 ng-show="result" ng-bind="ok"></h2>
-			<button class="btn btn-default" ng-click="makeEquation()">다음문제</button>
-		</div>
-	</div>
-
-</div>
 
 </body>
 </html>
