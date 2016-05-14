@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+	<link href="vendor/bootstrap.min.css" rel="stylesheet" type="text/css"><!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">-->
+
+	<style type="text/css">
+		 	html, body {
+		 		height: 100%;
+		 		margin: 0;
+		 	}
+
+		 	#wrapper {
+		 		min-height: 100%;
+		 	}
+		 </style>
+
+	<script type="text/javascript" src="vendor/jquery.min.js"></script><!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
+	<script type="text/javascript" src="vendor/underscore-min.js"></script><!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>-->
+	<script type="text/javascript" src="js/undermatrix.js"></script>
+	<script type="text/javascript" src="vendor/bootstrap.min.js"></script>
+	<script type="text/javascript" src="vendor/angular.min.js"></script><!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>-->
+	<!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script> -->
+	<script type="text/javascript" src="vendor/ui-bootstrap-tpls-1.3.2.min.js"></script><!--<script type="text/javascript" src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.min.js"></script>-->
+	<script type="text/javascript" src="vendor/ng-google-chart.min.js"></script><!--<script type="text/javascript" src="//bouil.github.io/angular-google-chart/ng-google-chart.min.js"></script>-->
+	<script type="text/javascript" src="js/app.js"></script>
+
+</head>
+
+<body ng-app="sumGame" ng-controller="sumGameCtrl">
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="">산수연습</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">과정 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="">덧셈</a></li>
+						<!-- <li role="separator" class="divider"></li> -->
+						<li><a href="">뺄셈</a></li>
+					</ul>
+				</li>
+			</ul>
+			<form class="navbar-form" role="search">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="첫째숫자" ng-model="firstNum">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="둘째숫자최대치" ng-model="secondNumMax">
+				</div>
+				<button type="submit" class="btn btn-default" ng-click="buildNums()">문제만들기</button>
+			</form>
+
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid" >
+
+	<div class="row text-center" >
+		<div class="col-sm-6" style="min-height: 50%;">
+
+			<div class="btn-group" role="group" aria-label="더하기">
+				<button type="button" class="btn btn-primary btn-lg" ng-click="add(100)">100</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="add(10)">_10</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="add(5)">__5</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="add(2)">__2</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="add(1)">__1</button>
+			</div>
+			<button type="button" class="btn btn-success btn-lg" ng-click="checkValue()">확인</button>
+		</div>
+
+		<div class="col-sm-6" style="min-height: 50%;">
+			<div class="btn-group" role="group" aria-label="빼기">
+				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-100)">100</button>
+				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-10)">_10</button>
+				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-5)">__5</button>
+				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-2)">__2</button>
+				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-1)">__1</button>
+			</div>
+
+			<button type="button" class="btn btn-success btn-lg" ng-click="add('reset')">다시</button>
+		</div>
+	</div>
+
+</div>
+
+<div class="container-fluid" style="min-height: 60%;">
+
+	<div class="row">
+		<div class="col-sm-12 text-center">
+			<h1 ng-bind="sumEquation + showinput"></h1>
+			<h2 ng-show="result" ng-bind="ok"></h2>
+			<button class="btn btn-default" ng-click="makeEquation()">다음문제</button>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
