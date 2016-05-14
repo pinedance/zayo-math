@@ -24,13 +24,16 @@ var num = [1,2,3,4,5,6,7,8,9]
 var sessions = ['+','-','*']
 var resultSign = {success: 'j-success', fail: 'j-fail', default: 'j-default'}
 $scope.session = 0 ; $scope.resultSign = resultSign.default
+$scope.count = 1
+$scope.secondNumMax = _.random(9, 50);
+$scope.firstNum = _.random(1, 50);
 
 var firstNum, secondNums
 
 var buildNums = $scope.buildNums = function(){
 	// firstNum = ( firstNum )? Number( firstNum ) : _.random(1, 20);
-	firstNum = ( $scope.firstNum )? Number( $scope.firstNum ) :	_.random(1, 50);
-	secondNums = ( $scope.secondNumMax )? _.range(1, Number( $scope.secondNumMax ) ) :	_.range(1, 50)
+	firstNum = Number( $scope.firstNum )
+	secondNums = _.range(1, Number( $scope.secondNumMax ) )
 	$scope.makeEquation()
 }
 
@@ -71,6 +74,7 @@ $scope.checkValue = function( ){
 	sendReport($scope.ok)
 	if($scope.ok){
 		delete $scope.answer
+		$scope.count++
 		$scope.makeEquation()
 	}
 }

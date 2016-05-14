@@ -12,13 +12,6 @@
 		 		height: 100%;
 		 		margin: 0;
 		 	}
-
-		 	#wrapper {
-		 		min-height: 100%;
-		 	}
-			/*.jumbo {
-				font-size: 200px;
-			}*/
 			.j-default {
 				background-color: #F8F8F8;
 			}
@@ -28,6 +21,15 @@
 			.j-fail {
 				background-color: #f2dede;
 			}
+			.jumbotron {
+				padding-top: 25%;
+    			padding-bottom: 25%;
+			}
+			.j-dials {
+				padding-top: 10px;
+    			padding-bottom: 10px;
+			}
+
 		 </style>
 
 	<script type="text/javascript" src="vendor/jquery.min.js"></script><!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
@@ -54,7 +56,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="">산수연습</a>
+			<a class="navbar-brand" href="">산수연습 <span class="badge" ng-bind="count"></span></a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -83,44 +85,77 @@
 	</div><!-- /.container-fluid -->
 </nav>
 
-<!-- <div class="panel" ng-class="resultSign" style="min-height: 600px;">
-	<div class="panel-heading">
-		<h3 class="panel-title">풀어보자 <button class="btn btn-default btn-sm" ng-click="makeEquation()">다음문제</button></h3>
-	</div>
-	<div class="panel-body text-center">
-		<h1 class="jumbo" ng-bind="sumEquation + showinput"></h1>
-	</div>
-</div> -->
-<div class="jumbotron text-center" ng-class="resultSign" style="cursor:pointer" ng-click="makeEquation()">
-	<h1 ng-bind="sumEquation + showinput"></h1>
+<div class="jumbotron text-center" ng-class="resultSign" style="cursor:pointer" ng-click="makeEquation()"
+	data-toggle="tooltip" data-placement="bottom" title="누르면 다음문제로">
+	<!-- <h1 ng-bind="sumEquation + showinput"></h1> -->
+	<h1 ng-bind="sumEquation + myinput"></h1>
 </div>
 
 
 <div class="container-fluid" >
 
 	<div class="row text-center" >
-		<div class="col-sm-6" style="min-height: 50%;">
-
-			<div class="btn-group" role="group" aria-label="더하기">
-				<button type="button" class="btn btn-primary btn-lg" ng-click="add(100)">100</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="add(10)">_10</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="add(5)">__5</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="add(2)">__2</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="add(1)">__1</button>
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="btn-group" role="group" aria-label="더하기" data-toggle="tooltip" data-placement="bottom" title="더하기">
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(500)" >500</button>
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(200)">200</button>
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(100)">100</button>
+				</div>
 			</div>
-			<button type="button" class="btn btn-success btn-lg" ng-click="checkValue()">확인</button>
+			<div class="row">
+				<div class="btn-group" role="group" aria-label="더하기" data-toggle="tooltip" data-placement="bottom" title="더하기">
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(50)" >_50</button>
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(20)">_20</button>
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(10)">_10</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group" role="group" aria-label="더하기" data-toggle="tooltip" data-placement="bottom" title="더하기">
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(5)" >__5</button>
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(2)">__2</button>
+					<button type="button" class="btn btn-success btn-lg" ng-click="add(1)">__1</button>
+				</div>
+			</div>
+			<div class="row j-dials">
+				<button type="button" class="btn btn-primary btn-lg" ng-click="checkValue()">확인</button>
+			</div>
 		</div>
 
-		<div class="col-sm-6" style="min-height: 50%;">
-			<div class="btn-group" role="group" aria-label="빼기">
-				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-100)">100</button>
-				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-10)">_10</button>
-				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-5)">__5</button>
-				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-2)">__2</button>
-				<button type="button" class="btn btn-danger btn-lg" ng-click="add(-1)">__1</button>
+		<div class="col-sm-6">
+			<div class="btn-group" role="group" aria-label="빼기" data-toggle="tooltip" data-placement="bottom" title="빼기">
+				<button type="button" class="btn btn-warning btn-lg" ng-click="add(-500)" >500</button>
+				<button type="button" class="btn btn-warning btn-lg" ng-click="add(-200)">200</button>
+				<button type="button" class="btn btn-warning btn-lg" ng-click="add(-100)">100</button>
 			</div>
+			<div class="row">
+				<div class="btn-group" role="group" aria-label="빼기" data-toggle="tooltip" data-placement="bottom" title="빼기">
+					<button type="button" class="btn btn-warning btn-lg" ng-click="add(-50)" >_50</button>
+					<button type="button" class="btn btn-warning btn-lg" ng-click="add(-20)">_20</button>
+					<button type="button" class="btn btn-warning btn-lg" ng-click="add(-10)">_10</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group" role="group" aria-label="빼기" data-toggle="tooltip" data-placement="bottom" title="빼기">
+					<button type="button" class="btn btn-warning btn-lg" ng-click="add(-5)" >__5</button>
+					<button type="button" class="btn btn-warning btn-lg" ng-click="add(-2)">__2</button>
+					<button type="button" class="btn btn-warning btn-lg" ng-click="add(-1)">__1</button>
+				</div>
+			</div>
+			<div class="row j-dials">
+				<button type="button" class="btn btn-danger btn-lg" ng-click="add('reset')">다시</button>
+			</div>
+		</div>
+	</div>
 
-			<button type="button" class="btn btn-success btn-lg" ng-click="add('reset')">다시</button>
+	<div class="row text-center" >
+		<div class="col-sm-12">
+			<form class="form-inline">
+			  <div class="form-group">
+			    <input type="text" class="form-control" placeholder="정답은?" ng-model="myinput">
+			  </div>
+			  <button type="submit" class="btn btn-default" ng-click="myinput=myinput;showMyInput();checkValue()">확인</button>
+			</form>
 		</div>
 	</div>
 
