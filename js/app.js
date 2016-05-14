@@ -94,8 +94,8 @@ $scope.add = function ( value ){
 	$scope.showinput = String( $scope.myinput ).rjust(3)
 }
 
-$scope.showMyInput = function(){
-	String( $scope.myinput ).rjust(3)
-}
+// $scope.showMyInput = function(){
+// 	String( $scope.myinput ).rjust(3)
+// }
 
 }]);
